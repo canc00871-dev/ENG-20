@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <title>Plans &  Marketing | Visual Comparison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for Neon/Cyberpunk Vibe -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Prompt:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Photo/M.jpg">
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      min-height: 100vh;
+      min-width: 100vw;
+      background: radial-gradient(ellipse at 50% 80%, #2d1e4d 0%, #181828 80%), 
+                  linear-gradient(120deg, #4e2a8e 0%, #00a8e1 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      animation: fadeInPage 1.2s cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes fadeInPage {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* Spotlights */
+    .spotlight {
+      position: fixed;
+      width: 320px;
+      height: 600px;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-8deg);
+      background: radial-gradient(ellipse at 50% 0%, #fff8 0%, #fff0 80%);
+      filter: blur(12px) brightness(1.2);
+      opacity: 0.22;
+      z-index: 1;
+      pointer-events: none;
+      animation: spotlightMove 7s ease-in-out infinite alternate;
+    }
+    .spotlight.right {
+      left: 70%;
+      transform: translateX(-50%) rotate(8deg);
+      background: radial-gradient(ellipse at 50% 0%, #00e1ff88 0%, #fff0 80%);
+      animation-delay: 2.5s;
+    }
+    .spotlight.left {
+      left: 30%;
+      transform: translateX(-50%) rotate(-12deg);
+      background: radial-gradient(ellipse at 50% 0%, #e509f888 0%, #fff0 80%);
+      animation-delay: 1.2s;
+    }
+    @keyframes spotlightMove {
+      0% { opacity: 0.18; }
+      50% { opacity: 0.33; }
+      100% { opacity: 0.18; }
+    }
+    /* Speaker box - unique style */
+    .speaker-box-final {
+      position: absolute;
+      top: 2.5vw;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      background: linear-gradient(90deg, #fff 0%, #00a8e1 60%, #e509b8 100%);
+      padding: 0.5em 2.2em 0.5em 1.2em;
+      border-radius: 32px 32px 18px 18px;
+      box-shadow: 0 0 32px #fff8, 0 0 24px #00a8e1cc;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 4px solid #e509b8;
+      animation: speakerDrop 1.2s cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes speakerDrop {
+      from { opacity: 0; transform: translateX(-50%) translateY(-40px);}
+      to { opacity: 1; transform: translateX(-50%) translateY(0);}
+    }
+    .speaker-box-final img {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      border: 2.5px solid #fff;
+      box-shadow: 0 0 12px #00a8e1, 0 0 8px #fff;
+      background: #fff;
+      object-fit: cover;
+      margin-right: 8px;
+    }
+    .speaker-box-final .speaker-name-final {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.18rem;
+      font-weight: 900;
+      color: #2d1e4d;
+      letter-spacing: 1.5px;
+      text-shadow: 0 0 8px #fff, 0 0 12px #00a8e1;
+      line-height: 1.1;
+    }
+    .speaker-box-final .speaker-id-final {
+      font-size: 1rem;
+      color: #00a8e1;
+      font-family: 'Prompt', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-left: 2px;
+    }
+    /* Merge animation */
+    .logo-merge-container {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 180px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      gap: 0;
+    }
+    .logo-netflix, .logo-disney {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px #fff) drop-shadow(0 0 18px #e50914);
+      opacity: 0.95;
+      position: relative;
+      top: 0;
+      transition: opacity 0.7s;
+      margin: 0;
+    }
+    .logo-disney {
+      filter: drop-shadow(0 0 18px #fff) drop-shadow(0 0 18px #00a8e1);
+    }
+    .swap-gif {
+      animation: gifSwapFade 0.7s;
+    }
+    @keyframes gifSwapFade {
+      0% { opacity: 0.5;}
+      100% { opacity: 1;}
+    }
+    @media (max-width: 600px) {
+      .logo-merge-container { width: 98vw; }
+      .logo-netflix, .logo-disney { width: 80px; height: 80px;}
+    }
+    /* GIF swap animation */
+    .swap-gif {
+      animation: gifSwapFade 0.7s;
+    }
+    @keyframes gifSwapFade {
+      0% { opacity: 0.5;}
+      100% { opacity: 1;}
+    }
+    /* Confetti / Applause GIF */
+    .confetti-gif {
+      position: absolute;
+      left: 50%; top: 68%;
+      transform: translate(-50%, -50%);
+      width: 380px;
+      height: 180px;
+      z-index: 20;
+      opacity: 0;
+      animation: confettiFade 1.2s 3.2s forwards, confettiFloat 2.5s 4.4s infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes confettiFade {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    @keyframes confettiFloat {
+      0% { transform: translate(-50%, -50%) scale(1);}
+      100% { transform: translate(-50%, -54%) scale(1.04);}
+    }
+    /* Final text */
+    .final-text {
+      position: absolute;
+      left: 50%; top: 80%;
+      transform: translate(-50%, -50%);
+      font-family: 'Prompt', Arial, sans-serif;
+      font-size: 2rem;
+      color: #fff;
+      background: rgba(24,24,64,0.72);
+      border-radius: 18px;
+      padding: 28px 60px;
+      box-shadow: 0 0 24px #00a8e1cc, 0 0 8px #fff;
+      text-align: center;
+      letter-spacing: 1.2px;
+      z-index: 12;
+      text-shadow: 0 0 8px #fff, 0 0 16px #00a8e1, 0 0 8px #e509b8;
+      animation: fadeInText 1.2s 3.7s forwards;
+      opacity: 0;
+      font-weight: 700;
+      border: 1.5px solid #fff4;
+      user-select: none;
+    }
+    @keyframes fadeInText {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    /* Laser effect */
+    .laser {
+      position: absolute;
+      left: 0; top: 50%;
+      width: 100vw;
+      height: 4px;
+      background: linear-gradient(90deg, #e509b8 0%, #fff 50%, #00a8e1 100%);
+      box-shadow: 0 0 24px #00a8e1cc, 0 0 8px #fff;
+      opacity: 0.7;
+      z-index: 25;
+      pointer-events: none;
+      animation: laserMove 2.5s 4.2s linear infinite alternate;
+    }
+    @keyframes laserMove {
+      0% { top: 54%; opacity: 0.7;}
+      50% { top: 58%; opacity: 1;}
+      100% { top: 54%; opacity: 0.7;}
+    }
+    /* Navigation Buttons */
+    .nav-btn {
+      position: fixed;
+      bottom: 28px;
+      z-index: 40;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #fff 40%, #e50914 100%);
+      box-shadow: 0 0 24px #e50914, 0 0 18px #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: #fff;
+      transition: background 0.2s, box-shadow 0.2s, color 0.2s, transform 0.18s;
+      overflow: visible;
+      border: 3px solid #fff;
+      opacity: 0.93;
+      animation: navBtnPulse 2.5s infinite alternate;
+    }
+    .nav-btn.right {
+      right: 24px;
+      background: linear-gradient(135deg, #fff 40%, #00a8e1 100%);
+      box-shadow: 0 0 24px #00a8e1, 0 0 18px #fff;
+    }
+    .nav-btn.left {
+      left: 24px;
+    }
+    .nav-btn:active {
+      filter: brightness(1.2) grayscale(0.2);
+      transform: scale(0.93);
+    }
+    @keyframes navBtnPulse {
+      0% { box-shadow: 0 0 24px #e50914, 0 0 18px #fff;}
+      100% { box-shadow: 0 0 48px #e50914, 0 0 32px #fff;}
+    }
+    .nav-btn.right {
+      animation: navBtnPulseBlue 2.5s infinite alternate;
+    }
+    @keyframes navBtnPulseBlue {
+      0% { box-shadow: 0 0 24px #00a8e1, 0 0 18px #fff;}
+      100% { box-shadow: 0 0 48px #00a8e1, 0 0 32px #fff;}
+    }
+    .nav-btn .icon-anim {
+      font-size: 2.2rem;
+      animation: iconSpin 3.5s linear infinite;
+      filter: drop-shadow(0 0 8px #00a8e1) drop-shadow(0 0 8px #e50914);
+    }
+    /* Cursor particle effect */
+    .cursor-particle {
+      position: fixed;
+      pointer-events: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff 40%, #00a8e1 80%, #e50914 100%);
+      box-shadow: 0 0 18px #00a8e1, 0 0 18px #e50914, 0 0 8px #fff;
+      opacity: 0.7;
+      z-index: 99999;
+      animation: cursorFade 0.7s linear forwards;
+    }
+    @keyframes cursorFade {
+      0% { opacity: 0.8; transform: scale(1);}
+      80% { opacity: 0.7;}
+      100% { opacity: 0; transform: scale(0.3);}
+    }
+    @media (max-width: 600px) {
+      .logo-merge-container { width: 98vw; }
+      .logo-netflix, .logo-disney { width: 80px; height: 80px;}
+    }
+    /* Background GIFs */
+    .logo-bg-gif {
+      position: fixed;
+      top: 0; left: 0;
+      width: 50vw;
+      height: 100vh;
+      z-index: 2;
+      opacity: 0.18;
+      background: center center no-repeat;
+      background-size: cover;
+      pointer-events: none;
+      transition: background-image 0.7s;
+    }
+    .logo-bg-gif.right {
+      left: 50vw;
+      background-position: right center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Spotlights -->
+  <div class="spotlight"></div>
+  <div class="spotlight right"></div>
+  <div class="spotlight left"></div>
+  <!-- Speaker box (center top, unique style) -->
+  <div class="speaker-box-final">
+    <img src="Photo/Kritaphon.jpg" alt="Speaker">
+    <div>
+      <span class="speaker-name-final" style="
+        font-size:1.35rem;
+        color:#fff;
+        text-shadow: 0 0 12px #00a8e1, 0 0 24px #2d1e4d, 0 0 8px #e509b8;
+        font-weight:900;
+        letter-spacing:2px;
+        filter:brightness(1.15);
+        ">
+        Krittaphon
+      </span>
+      <span class="speaker-id-final" style="
+        font-size:1.08rem;
+        color:#e50914;
+        font-family:'Orbitron',Arial,sans-serif;
+        font-weight:900;
+        letter-spacing:1.2px;
+        margin-left:8px;
+        text-shadow: 0 0 8px #e50914, 0 0 12px #fff;
+        ">
+        (6706105302)
+      </span>
+    </div>
+  </div>
+  <!-- Logo GIF ซ้ายขวาเป็นพื้นหลัง (ซ้อนอยู่หลังเนื้อหา) -->
+  <div class="logo-bg-gif" id="logoBgGifLeft"></div>
+  <div class="logo-bg-gif right" id="logoBgGifRight"></div>
+  <!-- เนื้อหากลางจอ -->
+  <div class="logo-merge-container" id="logoMergeContainer" style="width:400px; height:180px; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; justify-content:space-between; align-items:center; z-index:10;">
+    <img src="GIF/NG4.gif" class="logo-netflix swap-gif" id="logoLeft" alt="Netflix Logo" style="width:140px; height:140px;">
+    <img src="GIF/DG1.gif" class="logo-disney swap-gif" id="logoRight" alt="Disney+ Logo" style="width:140px; height:140px;">
+  </div>
+ 
+  <!-- Laser effect -->
+  <div class="laser"></div>
+  <!-- Final text -->
+  <div class="final-text" style="top:80%; font-size:2rem; padding:28px 60px;">
+    Wait… something special is coming!🚀<br>
+    <span style="color:#00e1ff;">Are you ready for the final surprise?</span>
+  </div>
+  <!-- Navigation Buttons -->
+  <button class="nav-btn left" id="backBtn" title="Back">
+    <span class="icon-anim">⏪</span>
+  </button>
+  <button class="nav-btn right" id="nextBtn" title="Next">
+    <span class="icon-anim">⏩</span>
+  </button>
+  <!-- Sound effect -->
+  <audio id="dingSound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae7b6.mp3" preload="auto"></audio>
+  <script>
+    // Sound effect on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const ding = document.getElementById('dingSound');
+      if (ding) { setTimeout(()=>ding.play(), 300); }
+    });
+    // Cursor particle effect
+    document.addEventListener('mousemove', function(e) {
+      const p = document.createElement('span');
+      p.className = 'cursor-particle';
+      p.style.left = (e.clientX - 7) + 'px';
+      p.style.top = (e.clientY - 7) + 'px';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    });
+    // Navigation button transitions
+    document.getElementById('backBtn').onclick = function() {
+      document.body.style.transition = "opacity 0.7s cubic-bezier(.4,2,.6,1)";
+      document.body.style.opacity = 0;
+      setTimeout(() => window.location.href = 'person4.html', 500);
+    };
+    document.getElementById('nextBtn').onclick = function() {
+      document.body.style.transition = "opacity 0.7s cubic-bezier(.4,2,.6,1)";
+      document.body.style.opacity = 0;
+      setTimeout(() => window.location.href = 'MAX.html', 500);
+    };
+    // GIF swap logic + เปลี่ยนพื้นหลังซ้ายขวา
+    const leftGifs = ["GIF/NG4.gif", "GIF/NG5.gif"];
+    const rightGifs = ["GIF/DG1.gif", "GIF/D7.gif"];
+    let gifIdx = 0;
+    function updateBgGifs() {
+      document.getElementById('logoBgGifLeft').style.backgroundImage = `url('${leftGifs[gifIdx]}')`;
+      document.getElementById('logoBgGifRight').style.backgroundImage = `url('${rightGifs[gifIdx]}')`;
+    }
+    setInterval(() => {
+      gifIdx = (gifIdx + 1) % leftGifs.length;
+      document.getElementById('logoLeft').src = leftGifs[gifIdx];
+      document.getElementById('logoRight').src = rightGifs[gifIdx];
+      document.getElementById('logoLeft').classList.add('swap-gif');
+      document.getElementById('logoRight').classList.add('swap-gif');
+      updateBgGifs();
+      setTimeout(() => {
+        document.getElementById('logoLeft').classList.remove('swap-gif');
+        document.getElementById('logoRight').classList.remove('swap-gif');
+      }, 700);
+    }, 3500);
+    // เรียกครั้งแรก
+    updateBgGifs();
+  </script>
+</body>
+</html>

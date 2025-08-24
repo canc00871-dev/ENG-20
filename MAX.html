@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Finale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="Photo/M.jpg">
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #181828;
+    }
+    body {
+      position: relative;
+      min-height: 100vh;
+      min-width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* ลบ blur ออกจากพื้นหลัง */
+      background:
+        radial-gradient(ellipse at 20% 50%, #e50914cc 0%, #181828 60%, transparent 100%) 0 0/100vw 100vh no-repeat,
+        radial-gradient(ellipse at 80% 50%, #00a8e1cc 0%, #181828 60%, transparent 100%) 0 0/100vw 100vh no-repeat,
+        linear-gradient(90deg, #e50914 0%, #181828 50%, #00a8e1 100%);
+      background-blend-mode: lighten, lighten, normal;
+      box-shadow:
+        0 0 120px 40px #e50914cc inset,
+        0 0 120px 40px #00a8e1cc inset,
+        0 0 320px 80px #fff2 inset;
+      /* ลบ animation blur */
+      /* animation: none; */
+      /* filter: none; */
+    }
+    /* ลบ keyframes bgPulse ออก */
+    .half-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 50vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      /* ลบ blur ออกจากฝั่งซ้ายขวา */
+      filter: none;
+      opacity: 0.8;
+    }
+    .half-bg.right {
+      left: 50vw;
+      background: linear-gradient(120deg, #00a8e1 60%, #181828 100%);
+      box-shadow: 0 0 128px #00e1ff88 inset;
+    }
+    .half-bg.left {
+      left: 0;
+      background: linear-gradient(240deg, #e50914 60%, #181828 100%);
+      box-shadow: 0 0 128px #e5091488 inset;
+    }
+    .circle-gif {
+      position: absolute;
+      top: 50%;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      opacity: 0.93;
+      background: transparent;
+      pointer-events: none;
+      transition: left 1.2s cubic-bezier(.4,2,.6,1), right 1.2s cubic-bezier(.4,2,.6,1), opacity 0.6s;
+      box-shadow:
+        0 0 96px 24px #fff8,
+        0 0 128px 32px #e50914cc,
+        0 0 128px 32px #00a8e1cc;
+      /* ลบ blur ออกจากวงกลม */
+      filter: brightness(1.18) drop-shadow(0 0 48px #fff);
+      animation: none;
+    }
+    .circle-gif.left {
+      left: 8vw;
+      box-shadow: 0 0 96px #e50914, 0 0 48px #fff, 0 0 128px #e50914cc;
+    }
+    .circle-gif.right {
+      right: 8vw;
+      box-shadow: 0 0 96px #00a8e1, 0 0 48px #fff, 0 0 128px #00a8e1cc;
+    }
+    .circle-gif img {
+      width: 100%; height: 100%; border-radius: 50%;
+      box-shadow: 0 0 48px #fff, 0 0 128px #e50914cc, 0 0 128px #00a8e1cc;
+      /* ลบ blur ออกจากรูป */
+      filter: brightness(1.15);
+    }
+    .explosion-gif {
+      position: fixed;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 100vh;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s;
+      /* ลบ blur ออกจากระเบิด */
+      filter: brightness(1.2) drop-shadow(0 0 128px #fff) drop-shadow(0 0 128px #e50914cc) drop-shadow(0 0 128px #00a8e1cc);
+      background: transparent;
+    }
+    .center-gif {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 520px;
+      height: 520px;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.7s;
+      box-shadow: 0 0 128px #fff, 0 0 64px #00a8e1, 0 0 64px #e50914;
+      border-radius: 50%;
+      background: rgba(24,24,64,0.08);
+      filter: none;
+      animation: none;
+    }
+    .floating-ball {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      opacity: 0.85;
+      z-index: 12;
+      pointer-events: none;
+      box-shadow: 0 0 24px #fff, 0 0 32px #e50914, 0 0 32px #00a8e1;
+      transition: filter 0.3s;
+      animation: ballFloat 7s ease-in-out infinite alternate;
+    }
+    .floating-ball.red {
+      background: radial-gradient(circle at 60% 40%, #e50914 60%, #fff 100%);
+      box-shadow: 0 0 32px #e50914, 0 0 12px #fff;
+    }
+    .floating-ball.blue {
+      background: radial-gradient(circle at 40% 60%, #00a8e1 60%, #fff 100%);
+      box-shadow: 0 0 32px #00a8e1, 0 0 12px #fff;
+    }
+    @keyframes ballFloat {
+      0% { filter: brightness(1.1);}
+      100% { filter: brightness(1.3);}
+    }
+    @media (max-width: 900px) {
+      .center-gif { width: 90vw; height: 90vw; }
+    }
+    @media (max-width: 700px) {
+      .center-gif { width: 98vw; height: 98vw; }
+      .neon-thankyou { font-size: 1.5rem; }
+      .end-btn { font-size: 1rem; padding: 10px 24px; }
+    }
+    .end-btn {
+      position: absolute;
+      left: 50%; bottom: 60px;
+      transform: translateX(-50%);
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.5rem;
+      background: linear-gradient(90deg, #e50914 0%, #00a8e1 100%);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 18px 54px;
+      box-shadow: 0 0 24px #e50914, 0 0 24px #00a8e1;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: 2px;
+      z-index: 20;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.18s;
+      outline: none;
+    }
+    .end-btn:active {
+      filter: brightness(1.2) grayscale(0.2);
+      transform: scale(0.93);
+    }
+    .neon-thankyou {
+      position: fixed;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 3.2rem;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 3px;
+      font-weight: 900;
+      z-index: 9999;
+      opacity: 0;
+      text-shadow:
+        0 0 48px #00e1ff,
+        0 0 96px #e50914,
+        0 0 64px #fff,
+        0 0 32px #00a8e1,
+        0 0 16px #e509b8;
+      filter: brightness(1.3) saturate(1.3);
+      pointer-events: none;
+      white-space: pre;
+    }
+    .neon-char {
+      opacity: 0;
+      animation: neonDrawChar 0.22s forwards;
+      display: inline-block;
+    }
+    @keyframes neonDrawChar {
+      0% { opacity: 0; filter: blur(12px) brightness(0.7);}
+      80% { opacity: 1; filter: blur(2px) brightness(1.2);}
+      100% { opacity: 1; filter: blur(0) brightness(1.3);}
+    }
+  </style>
+</head>
+<body>
+  <div class="half-bg left"></div>
+  <div class="half-bg right"></div>
+  <!-- วงกลม GIF ซ้าย (Netflix) -->
+  <div class="circle-gif left" id="circleLeft">
+    <img src="GIF/DG1.gif" alt="Netflix">
+  </div>
+  <!-- วงกลม GIF ขวา (Disney+) -->
+  <div class="circle-gif right" id="circleRight">
+    <img src="GIF/NG4.gif" alt="Disney+">
+  </div>
+  <!-- GIF เอฟเฟกต์ระเบิด (เต็มจอ) -->
+  <img src="GIF/END.gif" class="explosion-gif" id="explosionGif" alt="Explosion">
+  <!-- GIF ใหม่ตรงกลาง (ไม่เบลอ) -->
+  <img src="Photo/MIM END.jpg" class="center-gif" id="centerGif" alt="Center Highlight" style="width:520px; height:520px; filter:none; box-shadow:0 0 128px #fff, 0 0 64px #00a8e1, 0 0 64px #e50914; border-radius:50%; background:rgba(24,24,64,0.08);">
+  <!-- บอลสลับสีแดงและฟ้าลอยไปมา -->
+  <div id="floatingBalls"></div>
+  <!-- ปุ่ม End -->
+  <button class="end-btn" id="endBtn">END</button>
+  <!-- เพลง (ปรับให้เล่นแค่ 6 วินาทีและเสียงเบา) -->
+  <audio id="endMusic" src="MUSIC/END.mp3" preload="auto"></audio>
+  <!-- ข้อความขอบคุณ Neon -->
+  <div class="neon-thankyou" id="neonThankyou"></div>
+  <script>
+    // บอลลอยไปมาเมื่อรูปใหม่ขึ้น
+    function showFloatingBalls() {
+      const balls = document.getElementById('floatingBalls');
+      balls.innerHTML = '';
+      for(let i=0;i<6;i++){
+        const ball = document.createElement('div');
+        ball.className = 'floating-ball ' + (i%2===0 ? 'red' : 'blue');
+        ball.style.left = (40 + Math.sin(i)*180 + Math.random()*120) + 'px';
+        ball.style.top = (120 + Math.cos(i)*180 + Math.random()*120) + 'px';
+        balls.appendChild(ball);
+      }
+      // Animate balls
+      let t = 0;
+      setInterval(() => {
+        document.querySelectorAll('.floating-ball').forEach((ball, i) => {
+          const angle = t/40 + i;
+          const r = 180 + (i%2===0 ? 40 : -40);
+          const x = window.innerWidth/2 + Math.cos(angle)*r - 27;
+          const y = window.innerHeight/2 + Math.sin(angle*1.2)*r/1.5 - 27;
+          ball.style.left = x + 'px';
+          ball.style.top = y + 'px';
+        });
+        t++;
+      }, 40);
+    }
+    // Animation: move circles to center, then explode, then show center GIF + balls
+    function collideCircles() {
+      document.getElementById('circleLeft').style.left = '50vw';
+      document.getElementById('circleRight').style.right = '50vw';
+      setTimeout(() => {
+        document.getElementById('circleLeft').style.opacity = '0';
+        document.getElementById('circleRight').style.opacity = '0';
+        document.getElementById('explosionGif').style.opacity = '1';
+        setTimeout(() => {
+          document.getElementById('explosionGif').style.opacity = '0';
+          document.getElementById('centerGif').style.opacity = '1';
+          showFloatingBalls();
+        }, 1200);
+      }, 1200);
+    }
+    window.addEventListener('DOMContentLoaded', collideCircles);
+
+    // END button logic
+    document.getElementById('endBtn').onclick = function() {
+      document.getElementById('centerGif').style.opacity = '0';
+      document.getElementById('endBtn').style.display = 'none';
+      document.getElementById('neonThankyou').style.opacity = '1';
+      drawNeonText('THANKYOU');
+      setTimeout(() => {
+        const music = document.getElementById('endMusic');
+        music.volume = 0.05; // เสียงเบา
+        music.currentTime = 0;
+        music.play();
+        // หยุดเพลงหลัง 6 วินาที
+        setTimeout(() => {
+          music.pause();
+          music.currentTime = 0;
+        }, 6000);
+      }, 400);
+    };
+
+    // Neon draw effect (typewriter)
+    function drawNeonText(text) {
+      const container = document.getElementById('neonThankyou');
+      container.innerHTML = '';
+      let delay = 0;
+      for (let i = 0; i < text.length; i++) {
+        const span = document.createElement('span');
+        span.textContent = text[i];
+        span.className = 'neon-char';
+        span.style.animationDelay = (delay + i * 0.18) + 's';
+        container.appendChild(span);
+      }
+    }
+  </script>
+</body>
+</html>

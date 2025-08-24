@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Disney+ & Pricing | Visual Comparison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for Neon/Cyberpunk Vibe -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Prompt:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Photo/M.jpg">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Prompt', Arial, sans-serif;
+      background: linear-gradient(135deg, #181828 0%, #1a1a40 60%, #00a8e1 100%);
+      overflow: hidden;
+      position: relative;
+      animation: fadeInPage 1.2s cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: translateX(60px);}
+      to { opacity: 1; transform: translateX(0);}
+    }
+    /* BG Poster Overlay */
+    .bg-poster {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: url('Photo/disney_poster.jpg') center/cover no-repeat;
+      opacity: 0.22;
+      filter: blur(2.5px) brightness(1.1) saturate(1.2);
+      animation: fadeInPoster 2s;
+    }
+    @keyframes fadeInPoster {
+      from { opacity: 0; }
+      to { opacity: 0.22; }
+    }
+    /* BG Particle */
+    .bg-particle {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: url('https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif') repeat center/cover;
+      opacity: 0.10;
+      animation: starMove 30s linear infinite alternate;
+    }
+    @keyframes starMove {
+      0% { background-position: 0 0;}
+      100% { background-position: 100vw 100vh;}
+    }
+    /* Speaker logo (top left) */
+    .speaker-logo-box {
+      position: absolute;
+      top: 2vw; left: 2vw;
+      display: flex;
+      align-items: center;
+      z-index: 20;
+      background: rgba(24,24,40,0.7);
+      border-radius: 24px;
+      box-shadow: 0 0 16px #00a8e1, 0 0 16px #e509b8;
+      padding: 8px 18px 8px 8px;
+      animation: slideInSpeaker 1.1s cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes slideInSpeaker {
+      from { opacity: 0; transform: translateX(-60px);}
+      to { opacity: 1; transform: translateX(0);}
+    }
+    .speaker-logo {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      margin-right: 12px;
+      box-shadow: 0 0 12px #fff, 0 0 18px #00a8e1;
+      background: #181818;
+      object-fit: cover;
+      border: 2px solid #fff;
+      animation: iconFloat 2.5s ease-in-out infinite alternate;
+    }
+    .speaker-name {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.2rem;
+      color: #fff;
+      text-shadow: 0 0 8px #fff, 0 0 16px #00a8e1, 0 0 16px #e509b8;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+    /* Disney+ Logo Float */
+    .disney-logo-float-wrap {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .disney-logo-glow {
+      position: absolute;
+      left: 50%; bottom: 18px;
+      transform: translateX(-50%);
+      width: 180px; height: 90px;
+      border-radius: 90px 90px 90px 90px/60px 60px 60px 60px;
+      background: radial-gradient(ellipse at center, #00e1ff 0%, #00a8e1 60%, #fff0 100%);
+      filter: blur(18px);
+      opacity: 0.55;
+      z-index: 1;
+      pointer-events: none;
+      animation: logoGlowPulse 2.8s infinite alternate;
+    }
+    @keyframes logoGlowPulse {
+      0% { opacity: 0.35; filter: blur(12px);}
+      100% { opacity: 0.7; filter: blur(22px);}
+    }
+    .disney-logo-float {
+      position: relative;
+      width: 180px;
+      z-index: 2;
+      filter:
+        drop-shadow(0 0 32px #00a8e1)
+        drop-shadow(0 0 18px #fff)
+        drop-shadow(0 0 32px #00e1ff);
+      opacity: 0.97;
+      animation: logoFloatUp 2.2s cubic-bezier(.4,2,.6,1);
+      background: rgba(24,24,64,0.18);
+      border-radius: 50%;
+      box-shadow: 0 0 48px #00e1ff, 0 0 24px #fff, 0 0 24px #00a8e1;
+      transition: filter 0.3s, box-shadow 0.3s;
+    }
+    .disney-logo-float:hover {
+      filter:
+        drop-shadow(0 0 64px #00e1ff)
+        drop-shadow(0 0 32px #fff)
+        drop-shadow(0 0 64px #00a8e1);
+      box-shadow: 0 0 96px #00e1ff, 0 0 48px #fff, 0 0 48px #00a8e1;
+    }
+    /* Center Glass Card */
+    .glass-card {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      min-height: 420px;
+      background: rgba(24, 24, 64, 0.82);
+      border-radius: 38px;
+      box-shadow: 0 0 64px #00a8e1, 0 0 32px #fff, 0 0 32px #e509b8;
+      border: 5px solid #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      z-index: 20;
+      animation: glassCardIn 1.2s cubic-bezier(.4,2,.6,1);
+      overflow: visible;
+      backdrop-filter: blur(8px);
+    }
+    @keyframes glassCardIn {
+      from { opacity: 0; transform: translate(-50%, 60%) scale(0.7);}
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1);}
+    }
+    .glass-title {
+      margin-top: 32px;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #fff 10%, #00a8e1 60%, #e509b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* ปรับ shadow ให้อ่านง่ายขึ้น */
+      text-shadow:
+        0 2px 8px #000a,
+        0 0 12px #00a8e1;
+      filter: none;
+      user-select: none;
+      text-align: center;
+      width: 90%;
+      max-width: 900px;
+      pointer-events: none;
+    }
+    .glass-desc {
+      margin: 18px 0 0 0;
+      color: #fff;
+      font-size: 1.3rem;
+      text-align: center;
+      font-family: 'Prompt', Arial, sans-serif;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #000a;
+      background: rgba(24,24,40,0.18);
+      border-radius: 18px;
+      padding: 8px 24px;
+      max-width: 90%;
+      margin-bottom: 18px;
+    }
+    /* Animated Characters */
+    .character-icon {
+      position: absolute;
+      z-index: 12;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      box-shadow: 0 0 18px #fff, 0 0 18px #00a8e1;
+      background: #fff;
+      object-fit: cover;
+      animation: charFloat 3.5s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .character-icon.mickey { left: 8vw; top: 18vh; animation-delay: 0s;}
+    .character-icon.elsa { left: 80vw; top: 22vh; animation-delay: 1.2s;}
+    .character-icon.ironman { left: 20vw; top: 70vh; animation-delay: 2.2s;}
+    .character-icon.grogu { left: 70vw; top: 65vh; animation-delay: 1.7s;}
+    @keyframes charFloat {
+      0% { transform: translateY(0) scale(1);}
+      100% { transform: translateY(-18px) scale(1.08);}
+    }
+    /* เพิ่ม path animation ให้แต่ละตัวลอยไปมาแบบแตกต่าง */
+    .float-path1 {
+      animation: floatPath1 12s linear infinite alternate;
+    }
+    .float-path2 {
+      animation: floatPath2 14s linear infinite alternate;
+    }
+    .float-path3 {
+      animation: floatPath3 16s linear infinite alternate;
+    }
+    .float-path4 {
+      animation: floatPath4 18s linear infinite alternate;
+    }
+    @keyframes floatPath1 {
+      0%   { left: 8vw;  top: 18vh;  transform: scale(1) rotate(0deg);}
+      20%  { left: 18vw; top: 10vh;  transform: scale(1.1) rotate(10deg);}
+      40%  { left: 30vw; top: 30vh;  transform: scale(1.2) rotate(-8deg);}
+      60%  { left: 18vw; top: 60vh;  transform: scale(1.1) rotate(8deg);}
+      80%  { left: 8vw;  top: 70vh;  transform: scale(1.2) rotate(-12deg);}
+      100% { left: 8vw;  top: 18vh;  transform: scale(1) rotate(0deg);}
+    }
+    @keyframes floatPath2 {
+      0%   { left: 80vw; top: 22vh;  transform: scale(1) rotate(0deg);}
+      25%  { left: 70vw; top: 10vh;  transform: scale(1.1) rotate(-10deg);}
+      50%  { left: 60vw; top: 40vh;  transform: scale(1.2) rotate(8deg);}
+      75%  { left: 70vw; top: 70vh;  transform: scale(1.1) rotate(-8deg);}
+      100% { left: 80vw; top: 22vh;  transform: scale(1) rotate(0deg);}
+    }
+    @keyframes floatPath3 {
+      0%   { left: 20vw; top: 70vh;  transform: scale(1) rotate(0deg);}
+      20%  { left: 35vw; top: 60vh;  transform: scale(1.1) rotate(12deg);}
+      40%  { left: 50vw; top: 80vh;  transform: scale(1.2) rotate(-8deg);}
+      60%  { left: 60vw; top: 60vh;  transform: scale(1.1) rotate(8deg);}
+      80%  { left: 40vw; top: 40vh;  transform: scale(1.2) rotate(-12deg);}
+      100% { left: 20vw; top: 70vh;  transform: scale(1) rotate(0deg);}
+    }
+    @keyframes floatPath4 {
+      0%   { left: 70vw; top: 65vh;  transform: scale(1) rotate(0deg);}
+      20%  { left: 60vw; top: 80vh;  transform: scale(1.1) rotate(-10deg);}
+      40%  { left: 80vw; top: 80vh;  transform: scale(1.2) rotate(8deg);}
+      60%  { left: 85vw; top: 60vh;  transform: scale(1.1) rotate(-8deg);}
+      80%  { left: 70vw; top: 40vh;  transform: scale(1.2) rotate(12deg);}
+      100% { left: 70vw; top: 65vh;  transform: scale(1) rotate(0deg);}
+    }
+    /* Pricing Table Visual */
+    .pricing-table {
+      width: 92%;
+      margin: 0 auto 18px auto;
+      background: rgba(0,0,0,0.32);
+      border-radius: 22px;
+      box-shadow: 0 0 24px #00a8e1, 0 0 8px #fff;
+      border: 2px solid #fff;
+      padding: 18px 18px 10px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: tableFadeIn 1.6s cubic-bezier(.4,2,.6,1) 0.5s backwards;
+      backdrop-filter: blur(2px);
+    }
+    @keyframes tableFadeIn {
+      0% { opacity: 0; transform: translateY(60px) scale(0.8);}
+      100% { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .pricing-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px 0;
+      border-bottom: 1px solid #00a8e1;
+      font-size: 1.2rem;
+      color: #fff;
+      letter-spacing: 1px;
+      font-family: 'Prompt', Arial, sans-serif;
+      background: rgba(0,0,0,0.10);
+      border-radius: 10px;
+    }
+    .pricing-row:last-child {
+      border-bottom: none;
+    }
+    .pricing-logo {
+      width: 38px;
+      margin-right: 10px;
+      vertical-align: middle;
+      filter: drop-shadow(0 0 8px #00a8e1);
+    }
+    .pricing-logo.netflix {
+      filter: drop-shadow(0 0 8px #e50914);
+    }
+    .pricing-value {
+      text-align: right;
+      font-size: 1.2em;
+      font-family: 'Orbitron', Arial, sans-serif;
+      margin: 0 2px;
+      color: #fff;
+      text-shadow: 0 2px 8px #000a;
+      background: none;
+    }
+    .price-bounce {
+      animation: priceBounce 1.8s infinite alternate;
+      display: inline-block;
+    }
+    @keyframes priceBounce {
+      0% { transform: translateY(0) scale(1);}
+      60% { transform: translateY(-8px) scale(1.1);}
+      100% { transform: translateY(0) scale(1);}
+    }
+    .coin-anim {
+      width: 32px;
+      margin-left: 8px;
+      vertical-align: middle;
+      animation: coinSpin 2.2s infinite linear;
+    }
+    @keyframes coinSpin {
+      0% { transform: rotateY(0);}
+      100% { transform: rotateY(360deg);}
+    }
+    /* Navigation GIF Buttons */
+    .gif-btn {
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      position: fixed;
+      bottom: 38px;
+      z-index: 20;
+      width: 90px;
+      height: 90px;
+      padding: 0;
+      transition: transform 0.18s;
+      border-radius: 50%;
+      box-shadow: 0 0 18px #00a8e1, 0 0 8px #fff;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+    .gif-btn.left { left: 38px;}
+    .gif-btn.right { right: 38px;}
+    .gif-btn img {
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: filter 0.2s;
+      background: #fff;
+      box-shadow: 0 0 18px #00a8e1, 0 0 8px #fff;
+    }
+    .gif-btn:active img {
+      filter: grayscale(1) brightness(1.5);
+    }
+    .gif-btn.swap img {
+      filter: hue-rotate(120deg) brightness(1.2) drop-shadow(0 0 18px #fff);
+      transition: filter 0.2s;
+    }
+    /* Cursor particle effect */
+    .cursor-particle {
+      position: fixed;
+      pointer-events: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff 40%, #00a8e1 80%, #e50914 100%);
+      box-shadow: 0 0 18px #00a8e1, 0 0 18px #e50914, 0 0 8px #fff;
+      opacity: 0.7;
+      z-index: 99999;
+      animation: cursorFade 0.7s linear forwards;
+    }
+    @keyframes cursorFade {
+      0% { opacity: 0.8; transform: scale(1);}
+      80% { opacity: 0.7;}
+      100% { opacity: 0; transform: scale(0.3);}
+    }
+    /* วิธีที่ 1: ใช้ DG4.gif เป็นพื้นหลังแบบกลมกลืน */
+    .bg-dg4 {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background: url('GIF/DG4.gif') center/contain no-repeat;
+      opacity: 0.18;
+      filter: blur(1.5px) brightness(1.2) saturate(1.2);
+      animation: fadeInDG4 2s;
+      /* ให้กลมกลืนกับ bg-poster และ bg-particle */
+    }
+    @keyframes fadeInDG4 {
+      from { opacity: 0; }
+      to { opacity: 0.18; }
+    }
+    .disney-logo-float-wrap {
+      z-index: 10;
+    }
+    .disney-logo-float {
+      /* เพิ่มขอบนีออนให้เด่นขึ้น */
+      box-shadow: 0 0 48px #00e1ff, 0 0 24px #fff, 0 0 24px #00a8e1, 0 0 0 8px #fff3 inset;
+      border: 4px solid #fff;
+      background: rgba(24,24,64,0.18);
+      border-radius: 50%;
+      filter:
+        drop-shadow(0 0 32px #00a8e1)
+        drop-shadow(0 0 18px #fff)
+        drop-shadow(0 0 32px #00e1ff);
+      transition: box-shadow 0.3s, filter 0.3s;
+    }
+    .disney-logo-float:hover {
+      box-shadow: 0 0 96px #00e1ff, 0 0 48px #fff, 0 0 48px #00a8e1, 0 0 0 12px #fff5 inset;
+      filter:
+        drop-shadow(0 0 64px #00e1ff)
+        drop-shadow(0 0 32px #fff)
+        drop-shadow(0 0 64px #00a8e1);
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .glass-card { width: 98vw; min-height: 220px; }
+      .glass-title { font-size: 1.3rem; }
+      .pricing-table { width: 98vw; }
+      .gif-btn { width: 56px; height: 56px; bottom: 10px;}
+      .gif-btn.left { left: 10px;}
+      .gif-btn.right { right: 10px;}
+      .character-icon { width: 38px; height: 38px;}
+    }
+    .speaker-logo-right {
+      left: auto !important;
+      right: 2vw !important;
+      flex-direction: row-reverse;
+      /* ให้ชื่ออยู่ทางซ้ายของรูป */
+    }
+    .speaker-logo-right .speaker-logo {
+      margin-right: 0;
+      margin-left: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-poster"></div>
+  <div class="bg-particle"></div>
+  
+
+  <!-- Speaker logo (top right) -->
+  <div class="speaker-logo-box speaker-logo-right">
+    <img src="Photo/Khaw.jpg" alt="Speaker" class="speaker-logo">
+    <div class="speaker-name">Thanatchaya<br><span style="font-size:1rem;">(6706102403)</span></div>
+  </div>
+
+  <!-- Animated Characters (vector/gif) ลอยไปมาด้วย path ต่างๆ -->
+  <img src="GIF/D11.gif" class="character-icon mickey float-path1" alt="Mickey">
+  <img src="GIF/DG3.gif" class="character-icon elsa float-path2" alt="Elsa">
+  <img src="GIF/DG8.gif" class="character-icon ironman float-path3" alt="Iron Man">
+  <img src="GIF/DD4.gif" class="character-icon grogu float-path4" alt="Grogu">
+
+  <!-- Center Glass Card -->
+  <div class="glass-card">
+    <div class="glass-title">Disney+ & Pricing</div>
+    <div class="glass-desc">
+      Disney+ vs Netflix  
+Compare prices and value—choose <br>
+      <span style="color:#00a8e1;">what fits you best!</span>
+    </div>
+    <div class="pricing-table" id="pricingTable">
+      <div class="pricing-row" id="row1">
+        <img src="GIF/NG1.gif" class="pricing-logo netflix" alt="Netflix" id="netflixLogo">
+        <span class="pricing-value price-bounce" style="color:#e50914;">$6.99</span>
+        <span class="pricing-value price-bounce" style="color:#e50914;">$15.49</span>
+        <span class="pricing-value price-bounce" style="color:#e50914;">$22.99</span>
+        <img src="GIF/COIN.gif" class="coin-anim" id="coinN">
+      </div>
+      <div class="pricing-row" id="row2">
+        <img src="GIF/Dg1.gif" class="pricing-logo" alt="Disney+" id="disneyLogo">
+        <span class="pricing-value price-bounce" style="color:#00a8e1;">$7.99</span>
+        <span class="pricing-value price-bounce" style="color:#00a8e1;">$13.99</span>
+        <img src="GIF/COIN.gif" class="coin-anim" id="coinD">
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation GIF Buttons -->
+  <button class="gif-btn left" id="backBtn">
+    <img src="GIF/NN1.gif" id="backGif" alt="Back">
+  </button>
+  <button class="gif-btn right" id="nextBtn">
+    <img src="GIF/DD1.gif" id="nextGif" alt="Next">
+  </button>
+
+  <!-- Sound effect -->
+  <audio id="dingSound" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae7b6.mp3" preload="auto"></audio>
+
+  <script>
+    // Sound effect on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const ding = document.getElementById('dingSound');
+      if (ding) { setTimeout(()=>ding.play(), 300); }
+    });
+
+    // Cursor particle effect
+    document.addEventListener('mousemove', function(e) {
+      const p = document.createElement('span');
+      p.className = 'cursor-particle';
+      p.style.left = (e.clientX - 7) + 'px';
+      p.style.top = (e.clientY - 7) + 'px';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    });
+
+    // Navigation GIF swap and effect
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const backGif = document.getElementById('backGif');
+    const nextGif = document.getElementById('nextGif');
+    const backGif1 = "GIF/NN1.gif";
+    const backGif2 = "GIF/NN2.gif";
+    const nextGif1 = "GIF/DD1.gif";
+    const nextGif2 = "GIF/DD2.gif";
+    backGif.src = backGif1;
+    nextGif.src = nextGif1;
+
+    backBtn.addEventListener('mousedown', () => {
+      backGif.src = backGif2;
+    });
+    backBtn.addEventListener('mouseup', () => {
+      backGif.src = backGif1;
+      document.body.style.transition = "opacity 0.7s cubic-bezier(.4,2,.6,1)";
+      document.body.style.opacity = 0;
+      setTimeout(() => window.location.href = 'person1.html', 500);
+    });
+    backBtn.addEventListener('mouseleave', () => {
+      backGif.src = backGif1;
+    });
+    nextBtn.addEventListener('mousedown', () => {
+      nextGif.src = nextGif2;
+    });
+    nextBtn.addEventListener('mouseup', () => {
+      nextGif.src = nextGif1;
+      document.body.style.transition = "opacity 0.7s cubic-bezier(.4,2,.6,1)";
+      document.body.style.opacity = 0;
+      setTimeout(() => window.location.href = 'person3.html', 500);
+    });
+    nextBtn.addEventListener('mouseleave', () => {
+      nextGif.src = nextGif1;
+    });
+
+    // Animated swap effect for pricing table
+    const pricingTable = document.getElementById('pricingTable');
+    const row1 = document.getElementById('row1');
+    const row2 = document.getElementById('row2');
+    const netflixLogo = document.getElementById('netflixLogo');
+    const disneyLogo = document.getElementById('disneyLogo');
+    let swapped = false;
+    setInterval(() => {
+      swapped = !swapped;
+      if (swapped) {
+        pricingTable.insertBefore(row2, row1);
+        netflixLogo.style.transform = "scale(0.9) rotate(-8deg)";
+        disneyLogo.style.transform = "scale(1.1) rotate(8deg)";
+        row1.style.opacity = "0.7";
+        row2.style.opacity = "1";
+      } else {
+        pricingTable.insertBefore(row1, row2);
+        netflixLogo.style.transform = "";
+        disneyLogo.style.transform = "";
+        row1.style.opacity = "1";
+        row2.style.opacity = "0.7";
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
